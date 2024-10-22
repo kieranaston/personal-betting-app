@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}EV Calculator{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h1>How good is your bet?</h1>
+<form id="ev-calc-form">
+    <div id="bankroll-entry">
+        <label for="enter-bankroll">Bankroll:</label>
+        <input id="enter-bankroll" name="bankroll" placeholder="$" required>
+    </div>
+    <div id="unit-size-entry">
+        <label for="enter-unit-size">Unit size:</label>
+        <input id="enter-unit-size" name="unit-size" placeholder="$" required>
+    </div>
+    <div id="odds-entry">
+        <label for="enter-your-odds">Your odds:</label>
+        <input id="enter-your-odds" name="your-odds" placeholder="American" required>
+    </div>
+    <div id="other-odds-entry">
+        <label for="enter-other-odds">Other odds:</label>
+        <input id="enter-other-odds" name="other-odds" placeholder="'150, 155, 135...'" required>
+    </div>
+    <div id="juice-entry">
+        <label for="juice">Default juice:</label>
+        <input id="juice" name="juice" step="0.01" placeholder="0.06" value="0.06">
+    </div>
+    <button type="submit">Calculate EV and Kelly</button>
+</form>
+<div id="ev-result">
+</div>
+<form id="place-bet-form">
+    <div id="bet-name-entry">
+        <label for="bet-name">Bet Name:</label>
+        <input id="bet-name" name="bet-name" placeholder="Enter the name of the bet" required>
+    </div>
+    <div id="kelly-percentage-entry">
+        <label for="kelly-percentage">Select Kelly Percentage:</label>
+        <select id="kelly-percentage" name="kelly-percentage">
+            <option value="100% Kelly">100%</option>
+            <option value="75% Kelly">75%</option>
+            <option value="50% Kelly">50%</option>
+            <option value="25% Kelly">25%</option>
+        </select>
+    </div>
+
+    <div id="units-placed-entry">
+        <label for="units-placed">Units Placed:</label>
+        <input id="units-placed" name="units-placed" placeholder="Enter units placed (optional)">
+    </div>
+
+    <button type="submit">Place Bet</button>
+</form>
+<div id="bet-details">
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='ev.js') }}" defer></script>
+<script>
+    const calculateEvUrl = "{{ url_for('ev.ev_calculator') }}";
+    const placeBetUrl = "{{ url_for('ev.place_bet') }}";
+    const getBetUrl = "{{ url_for('ev.get_bet', bet_id=0) }}";
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Recent Bets{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Bet Name</th>
+            <th>Bankroll</th>
+            <th>Unit Size</th>
+            <th>Your Odds</th>
+            <th>Other Odds</th>
+            <th>EV</th>
+            <th>Units Placed</th>
+            <th>Juice</th>
+            <th>Status</th>
+            <th>Profit/Loss</th> <!-- New column for status -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for bet in bets %}
+        <tr>
+            <td>{{ bet.date }}</td>
+            <td>{{ bet.bet_name }}</td>
+            <td>{{ bet.bankroll }}</td>
+            <td>{{ bet.unit_size }}</td>
+            <td>{{ bet.your_odds }}</td>
+            <td>{{ bet.other_odds }}</td>
+            <td>{{ (bet.ev * 100) | round(2) }}%</td>
+            <td>{{ bet.units_placed | round(2) }}</td>
+            <td>{{ (bet.juice * 100) | round(2) }}%</td>
+            <td>
+                <!-- Ensure the URL includes the update-bet-status/ path -->
+                <select onchange="updateBetStatus('/bets/update-bet-status/{{ bet.id }}', this.value)">
+                    <option value="not settled" {% if bet.outcome == 'not settled' %}selected{% endif %}>Not Settled</option>
+                    <option value="won" {% if bet.outcome == 'won' %}selected{% endif %}>Won</option>
+                    <option value="lost" {% if bet.outcome == 'lost' %}selected{% endif %}>Lost</option>
+                </select>
+            </td>
+            <td class="profit-loss" id="profit-loss-{{ bet.id }}">{{ bet.profit_loss }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button id="backup-btn">Backup Database</button>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='bets.js') }}"></script>
+<script>
+    const backupBetsUrl = "{{ url_for('backup.backup_db') }}";
+</script>
+{% endblock %}
