@@ -28,6 +28,9 @@ function calculateEV() {
     const your_odds = document.getElementById('enter-your-odds').value;
     const other_odds = document.getElementById('enter-other-odds').value;
     const juice = document.getElementById('juice').value;
+
+    const messageContainer = document.getElementById('ev-message-container');
+
     fetch(calculateEvUrl, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -41,21 +44,33 @@ function calculateEV() {
     })
     .then(response => response.json())
     .then(data => {
-        const evPercentage = (data.ev * 100).toFixed(2) + '%';
-        const juicePercentage = (data.juice * 100).toFixed(2) + '%';
-        let kellyUnitsHTML = '<ul>';
-        Object.entries(data.kelly_units).forEach(([key, value]) => {
-            kellyUnitsHTML += `<li>${key}: ${value.toFixed(2)}</li>`;
-        });
-        kellyUnitsHTML += '</ul>';
-        document.getElementById('ev-result').innerHTML = `
-            <p>EV: ${evPercentage}</p>
-            <p>Juice: ${juicePercentage}</p>
-            <p>Kelly Units:</p>
-            ${kellyUnitsHTML}
-        `;
+        if (data.ev && data.juice && data.kelly_units) {
+            const evPercentage = (data.ev * 100).toFixed(2) + '%';
+            const juicePercentage = (data.juice * 100).toFixed(2) + '%';
+            let kellyUnitsHTML = '<ul>';
+            Object.entries(data.kelly_units).forEach(([key, value]) => {
+                kellyUnitsHTML += `<li>${key}: ${value.toFixed(2)}</li>`;
+            });
+            kellyUnitsHTML += '</ul>';
+            document.getElementById('ev-result').innerHTML = `
+                <p>EV: ${evPercentage}</p>
+                <p>Juice: ${juicePercentage}</p>
+                <p>Kelly Units:</p>
+                ${kellyUnitsHTML}
+            `;
+
+            messageContainer.textContent = 'EV calculated successfully!';
+            messageContainer.style.color = 'green';
+        } else {
+            messageContainer.textContent = 'Error calculating EV. Please check the input values.';
+            messageContainer.style.color = 'red';
+        }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        messageContainer.textContent = 'An error occurred while calculating EV.';
+        messageContainer.style.color = 'red'; 
+        console.error('Error:', error);
+    });
 }
 
 function placeBet() {
