@@ -4,14 +4,19 @@ document.getElementById('backup-btn').addEventListener('click', function() {
     })
     .then(response => response.json())
     .then(data => {
+        const messageContainer = document.getElementById('backup-message-container');
         if (data.message) {
-            console.log(data.message);
+            messageContainer.textContent = data.message;
+            messageContainer.style.color = 'green';
         } else if (data.error) {
-            console.log('Error: ' + data.error);
+            messageContainer.textContent = 'Error: ' + data.error;
+            messageContainer.style.color = 'red';
         }
     })
     .catch(error => {
-        console.log('An error occurred while backing up the database.');
+        const messageContainer = document.getElementById('backup-message-container');
+        messageContainer.textContent = 'An error occurred while backing up the database.';
+        messageContainer.style.color = 'red';
         console.error(error);
     });
 });
