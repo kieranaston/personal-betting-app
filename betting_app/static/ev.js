@@ -9,7 +9,7 @@ document.getElementById('place-bet-form').addEventListener('submit', function(ev
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('/ev/get-latest-bankroll', {
+    fetch(latestBankrollUrl, {
         method: 'GET'
     })
     .then(response => response.json())
@@ -57,40 +57,7 @@ function calculateEV() {
     })
     .catch(error => console.error('Error:', error));
 }
-/*
-function placeBet() {
-    const bet_name = document.getElementById('bet-name').value;
-    const kelly_percentage = document.getElementById('kelly-percentage').value;
-    const bankroll = document.getElementById('enter-bankroll').value;
-    const unit_size = document.getElementById('enter-unit-size').value;
-    const your_odds = document.getElementById('enter-your-odds').value;
-    const other_odds = document.getElementById('enter-other-odds').value;
-    fetch(placeBetUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            bet_name: bet_name,
-            units_placed: kelly_percentage,
-            bankroll: bankroll,
-            unit_size: unit_size,
-            your_odds: your_odds,
-            other_odds: other_odds
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            console.log(`Error placing bet: ${data.error}`);
-        }
-        else {
-            const bet_id = data.bet_id;
-            console.log('Bet placed successfully.');
-            getBetById(bet_id);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
-*/
+
 function placeBet() {
     const bet_name = document.getElementById('bet-name').value;
     const kelly_percentage = document.getElementById('kelly-percentage').value;
@@ -99,10 +66,8 @@ function placeBet() {
     const your_odds = document.getElementById('enter-your-odds').value;
     const other_odds = document.getElementById('enter-other-odds').value;
 
-    // Get the manually entered units placed (if provided)
     const manual_units_placed = document.getElementById('units-placed').value;
 
-    // Default to the Kelly percentage if no units are specified manually
     const units_placed = manual_units_placed ? parseFloat(manual_units_placed) : kelly_percentage;
 
     fetch(placeBetUrl, {
@@ -124,7 +89,7 @@ function placeBet() {
         } else {
             const bet_id = data.bet_id;
             console.log('Bet placed successfully.');
-            getBetById(bet_id);  // Display the placed bet
+            getBetById(bet_id);
         }
     })
     .catch(error => console.error('Error:', error));
@@ -144,7 +109,7 @@ function getBet(betId) {
         if (data.error) {
             console.error('Error fetching bet:', data.error);
         } else {
-            displayBet(data);  // Function to display the bet in the DOM
+            displayBet(data);
         }
     })
     .catch(error => {
@@ -166,7 +131,7 @@ function getBetById(betId) {
         if (data.error) {
             console.error('Error fetching bet:', data.error);
         } else {
-            displayBet(data);  // Function to display the bet in the DOM
+            displayBet(data);
         }
     })
     .catch(error => {
@@ -177,10 +142,8 @@ function getBetById(betId) {
 function displayBet(bet) {
     const betDetailsDiv = document.getElementById('bet-details');
 
-    // Clear any previous bet info
     betDetailsDiv.innerHTML = '';
 
-    // Create and append elements to display the bet info
     const betInfo = `
         <h3>Bet Details</h3>
         <p><strong>Bet Name:</strong> ${bet.bet_name}</p>

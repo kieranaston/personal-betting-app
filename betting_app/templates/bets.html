@@ -18,7 +18,7 @@
             <th>Units Placed</th>
             <th>Juice</th>
             <th>Status</th>
-            <th>Profit/Loss</th> <!-- New column for status -->
+            <th>Profit/Loss</th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +34,6 @@
             <td>{{ bet.units_placed | round(2) }}</td>
             <td>{{ (bet.juice * 100) | round(2) }}%</td>
             <td>
-                <!-- Ensure the URL includes the update-bet-status/ path -->
                 <select onchange="updateBetStatus('/bets/update-bet-status/{{ bet.id }}', this.value)">
                     <option value="not settled" {% if bet.outcome == 'not settled' %}selected{% endif %}>Not Settled</option>
                     <option value="won" {% if bet.outcome == 'won' %}selected{% endif %}>Won</option>

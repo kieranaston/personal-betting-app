@@ -1,26 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Fetch bankroll data from Flask
     fetch(graphDataUrl)
         .then(response => response.json())
         .then(data => {
-            const dates = data.map(entry => new Date(entry.date));  // X-axis: dates
-            const bankrolls = data.map(entry => entry.new_bankroll);  // Y-axis: bankroll values
-            const betNames = data.map(entry => entry.bet_name);  // Bet names for tooltips
+            const dates = data.map(entry => new Date(entry.date));
+            const bankrolls = data.map(entry => entry.new_bankroll);
+            const betNames = data.map(entry => entry.bet_name);
 
-            // Create the chart after data is loaded
             const ctx = document.getElementById('bankrollChart').getContext('2d');
             const bankrollChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: dates,  // X-axis: dates
+                    labels: dates,
                     datasets: [{
                         label: 'Bankroll Over Time',
-                        data: bankrolls,  // Y-axis: bankroll values
-                        borderColor: 'rgba(75, 192, 192, 1)',  // Line color
-                        backgroundColor: 'rgba(75, 192, 192, 0.1)',  // Background fill (if needed)
+                        data: bankrolls,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
                         pointRadius: 5,
                         pointHoverRadius: 7,
-                        fill: false,  // No background fill for a simple line
+                        fill: false,
                     }]
                 },
                 options: {
@@ -28,22 +26,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         x: {
                             type: 'time',
                             time: {
-                                unit: 'day',  // Display time by day
-                                tooltipFormat: 'MMM dd, yyyy',  // Tooltip date format
+                                unit: 'day',
+                                tooltipFormat: 'MMM dd, yyyy',
                             },
                             ticks: {
                                 autoSkip: true,
-                                maxTicksLimit: 10,  // Limit the number of date labels on X-axis
+                                maxTicksLimit: 10,
                             },
                             title: {
                                 display: true,
-                                text: 'Date',  // Label for X-axis
+                                text: 'Date',
                             }
                         },
                         y: {
                             title: {
                                 display: true,
-                                text: 'Bankroll ($)',  // Label for Y-axis
+                                text: 'Bankroll ($)', 
                             },
                         }
                     },

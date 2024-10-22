@@ -33,7 +33,7 @@ def create_app(test_config=None):
     from . import graph
     app.register_blueprint(graph.graph_bp)
 
-    from . import backups  # Import the blueprint
-    app.register_blueprint(backups.backup_bp)  # Register the backup blueprint
+    from . import backups
+    app.register_blueprint(backups.backup_bp) 
 
     return app

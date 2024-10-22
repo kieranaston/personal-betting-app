@@ -6,7 +6,7 @@ from betting_app.db import get_db
 from datetime import datetime
 
 ev_bp = Blueprint('ev', __name__, url_prefix='/ev')
-'''
+
 @ev_bp.route('/place-bet', methods=['POST'])
 def place_bet():
     try:
@@ -21,54 +21,12 @@ def place_bet():
         if not ev or not juice or not kelly_units:
             return jsonify({'error': 'EV, juice, or Kelly units not found in session.'}), 400
 
-        units_placed = kelly_units[request.json.get('units_placed')]
-        units_placed = round(units_placed, 2)
-        bet_name = request.json.get('bet_name')
-        date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute(
-            'INSERT INTO bets (date, bet_name, bankroll, unit_size, your_odds, other_odds, ev, units_placed, juice) '
-            'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            (date, bet_name, bankroll, unit_size, your_odds, other_odds, ev, units_placed, juice)
-        )
-        db.commit()
-
-        bet_id = cursor.lastrowid
-
-        cursor.execute(
-            'INSERT INTO bankroll_history (bet_id, date, unit_size, change, new_bankroll) '
-            'VALUES (?, ?, ?, ?, ?)',
-            (bet_id, date, unit_size, 0, bankroll)  # No change initially, just set to bankroll entered
-        )
-        db.commit()
-
-        return jsonify({'bet_id': bet_id}), 200
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-'''
-@ev_bp.route('/place-bet', methods=['POST'])
-def place_bet():
-    try:
-        bankroll = float(request.json.get('bankroll'))
-        unit_size = float(request.json.get('unit_size'))
-        your_odds = int(request.json.get('your_odds'))
-        other_odds = request.json.get('other_odds')
-        juice = session.get('juice')
-        ev = session.get('value')
-        kelly_units = session.get('kelly_units')
-
-        if not ev or not juice or not kelly_units:
-            return jsonify({'error': 'EV, juice, or Kelly units not found in session.'}), 400
-
-        # Handle units placed manually or via Kelly percentage
         manual_units_placed = request.json.get('units_placed')
         if manual_units_placed:
-            units_placed = float(manual_units_placed)  # Use manually entered units
+            units_placed = float(manual_units_placed)
         else:
-            kelly_percentage = request.json.get('kelly_percentage')  # Use Kelly percentage if no manual units
+            kelly_percentage = request.json.get('kelly_percentage')
             units_placed = round(kelly_units[kelly_percentage], 2)
 
         bet_name = request.json.get('bet_name')
@@ -85,11 +43,10 @@ def place_bet():
 
         bet_id = cursor.lastrowid
 
-        # Add initial bankroll history entry
         cursor.execute(
             'INSERT INTO bankroll_history (bet_id, date, unit_size, change, new_bankroll) '
             'VALUES (?, ?, ?, ?, ?)',
-            (bet_id, date, unit_size, 0, bankroll)  # No change initially, just set to bankroll entered
+            (bet_id, date, unit_size, 0, bankroll) 
         )
         db.commit()
 
@@ -106,7 +63,7 @@ def ev_calculator():
     your_odds = int(request.json.get('your_odds'))
     other_odds = request.json.get('other_odds')
     other_odds = ev_calc.split_odds(other_odds)
-    #other_odds = list(map(int, other_odds))
+
     juice = float(request.json.get('juice'))
     ev, juice, kelly_units = ev_calc.how_good(your_odds, other_odds, bankroll, unit_size, juice)
     session['value'] = ev

@@ -18,10 +18,10 @@ CREATE TABLE bets (
 
 CREATE TABLE bankroll_history (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    bet_id INTEGER,              -- Link to the specific bet causing this change
-    date TEXT NOT NULL,          -- Date of the change
-    unit_size REAL NOT NULL,     -- Unit size at the time of the bet
-    change REAL NOT NULL,        -- Change in bankroll in dollars (profit/loss * unit_size)
-    new_bankroll REAL NOT NULL,  -- New bankroll after applying the change
+    bet_id INTEGER,
+    date TEXT NOT NULL,
+    unit_size REAL NOT NULL,
+    change REAL NOT NULL,
+    new_bankroll REAL NOT NULL,  
     FOREIGN KEY (bet_id) REFERENCES bets(id) ON DELETE CASCADE
 );
