@@ -68,7 +68,7 @@ function calculateEV() {
     })
     .catch(error => {
         messageContainer.textContent = 'An error occurred while calculating EV.';
-        messageContainer.style.color = 'red'; 
+        messageContainer.style.color = 'red';
         console.error('Error:', error);
     });
 }
@@ -80,10 +80,12 @@ function placeBet() {
     const unit_size = document.getElementById('enter-unit-size').value;
     const your_odds = document.getElementById('enter-your-odds').value;
     const other_odds = document.getElementById('enter-other-odds').value;
-
     const manual_units_placed = document.getElementById('units-placed').value;
 
-    const units_placed = manual_units_placed ? parseFloat(manual_units_placed) : kelly_percentage;
+    // Default to Kelly percentage if no units are manually specified
+    const units_placed = manual_units_placed;
+
+    const messageContainer = document.getElementById('bet-message-container');  // Get the message container for placing bets
 
     fetch(placeBetUrl, {
         method: 'POST',
@@ -94,20 +96,27 @@ function placeBet() {
             bankroll: bankroll,
             unit_size: unit_size,
             your_odds: your_odds,
-            other_odds: other_odds
+            other_odds: other_odds,
+            kelly_percentage: kelly_percentage
         })
     })
     .then(response => response.json())
     .then(data => {
         if (data.error) {
-            console.log(`Error placing bet: ${data.error}`);
+            messageContainer.textContent = `Error placing bet: ${data.error}`;
+            messageContainer.style.color = 'red';  // Display error in red
         } else {
             const bet_id = data.bet_id;
-            console.log('Bet placed successfully.');
-            getBetById(bet_id);
+            messageContainer.textContent = 'Bet placed successfully!';
+            messageContainer.style.color = 'green';  // Display success message in green
+            getBetById(bet_id);  // Optionally display bet details
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        messageContainer.textContent = 'An error occurred while placing the bet.';
+        messageContainer.style.color = 'red';  // Display error in red
+        console.error('Error:', error);
+    });
 }
 
 function getBet(betId) {

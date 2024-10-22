@@ -46,7 +46,7 @@ def place_bet():
         cursor.execute(
             'INSERT INTO bankroll_history (bet_id, date, unit_size, change, new_bankroll) '
             'VALUES (?, ?, ?, ?, ?)',
-            (bet_id, date, unit_size, 0, bankroll) 
+            (bet_id, date, unit_size, 0, bankroll)
         )
         db.commit()
 
@@ -54,7 +54,6 @@ def place_bet():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 
 @ev_bp.route('/ev-calculator', methods=['POST'])
 def ev_calculator():
