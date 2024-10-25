@@ -1,161 +1,200 @@
-/* General Styling */
+/* Body */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-}
-
-h1 {
-    text-align: center;
-    margin: 20px 0;
-}
-
-/* Navigation Bar */
-nav {
-    background-color: #333;
-    padding: 15px;
-    text-align: center;
-}
-
-nav h1 {
-    color: white;
-    margin-bottom: 10px;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
     font-weight: bold;
 }
 
-nav ul li a:hover {
-    text-decoration: underline;
+/* Nav bar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* Flash Message */
-.flash {
-    background-color: #ff9800;
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1e1e1e;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
     color: white;
-    padding: 10px;
     text-align: center;
-    margin-bottom: 15px;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
-/* Content Section */
-.content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+ul.topnav li a:hover {background-color: #534b4f;}
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {float: none;}
+}
+
+li {
+  border-right: 1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+/* Page and app titles */
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: left;
+  color: #000000;
+  text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-left: 15px;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 25px;
+  margin-left: 15px;
+}
+
+/* Charts */
+#bankrollChart {
+  width: 70vw;
+  height: 40vh;
+  margin: 0 auto;
 }
 
 /* Forms */
 form {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;  /* Set max width for the form */
-    margin: 0 auto;  /* Center the form */
-    text-align: left;  /* Ensure text boxes align to the left */
-}
-
-form label {
-    display: block;
-    font-weight: bold;
-    margin: 10px 0 5px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border: none;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-align: left;
 }
 
 form input,
-form select {
-    width: 100%;  /* Make input and select boxes full width */
-    max-width: 400px;  /* Limit input width for better alignment */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+form select,
+form button {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 20px 0;
+form input:hover,
+form select:hover,
+form button:hover {
+  background-color: #333333;
+  box-shadow: 0px 3px 8px rgba(255, 255, 255, 0.15);
 }
 
-button:hover {
-    background-color: #218838;
+form button {
+  cursor: pointer;
+  width: auto;
+  padding: 10px 20px;
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #cccccc;
 }
 
 /* Tables */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 20px auto;
+  border-spacing: 0;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+table thead th {
+  background-color: #2a2a2a;
+  color: #cccccc;
+  font-weight: bold;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #444444;
 }
 
-th, td {
-    padding: 12px 15px;
-    text-align: center;
+table tbody tr:nth-child(odd) td {
+  background-color: #252525;
+}
+table tbody tr:nth-child(even) td {
+  background-color: #1e1e1e;
 }
 
-th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+table td {
+  padding: 12px;
 }
 
-.profit-loss {
-    font-weight: bold;
+table select {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-tbody tr:hover {
-    background-color: #f1f1f1;
+table select:hover {
+  background-color: #333333;
+  box-shadow: 0px 3px 8px rgba(255, 255, 255, 0.15);
 }
 
-/* Graph Canvas */
-#bankrollChart {
-    max-width: 1200px;  /* Make the chart wider */
-    height: 500px;  /* Increase height */
-    margin: 0 auto;
+table .profit-loss {
+  font-weight: bold;
+  color: #e0e0e0;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
+#backup-btn {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px 5%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
 
-    form input,
-    form select {
-        width: 100%;
-    }
-
-    #bankrollChart {
-        width: 100%;
-        height: auto;
-    }
+#backup-btn:hover {
+  background-color: #555555;
 }

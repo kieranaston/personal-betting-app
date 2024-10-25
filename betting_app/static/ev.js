@@ -82,10 +82,9 @@ function placeBet() {
     const other_odds = document.getElementById('enter-other-odds').value;
     const manual_units_placed = document.getElementById('units-placed').value;
 
-    // Default to Kelly percentage if no units are manually specified
     const units_placed = manual_units_placed;
 
-    const messageContainer = document.getElementById('bet-message-container');  // Get the message container for placing bets
+    const messageContainer = document.getElementById('bet-message-container');
 
     fetch(placeBetUrl, {
         method: 'POST',
@@ -104,17 +103,17 @@ function placeBet() {
     .then(data => {
         if (data.error) {
             messageContainer.textContent = `Error placing bet: ${data.error}`;
-            messageContainer.style.color = 'red';  // Display error in red
+            messageContainer.style.color = 'red';
         } else {
             const bet_id = data.bet_id;
             messageContainer.textContent = 'Bet placed successfully!';
-            messageContainer.style.color = 'green';  // Display success message in green
-            getBetById(bet_id);  // Optionally display bet details
+            messageContainer.style.color = 'green';
+            getBetById(bet_id);
         }
     })
     .catch(error => {
         messageContainer.textContent = 'An error occurred while placing the bet.';
-        messageContainer.style.color = 'red';  // Display error in red
+        messageContainer.style.color = 'red'; 
         console.error('Error:', error);
     });
 }

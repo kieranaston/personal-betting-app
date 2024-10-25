@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
+{% block header %}
 {% block title %}Bankroll Graph{% endblock %}
+{% endblock %}
 
 {% block content %}
-<h1>Bankroll Over Time</h1>
 <canvas id="bankrollChart" width="400" height="200"></canvas>
 {% endblock %}
 
@@ -12,6 +13,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
 <script src="{{ url_for('static', filename='graph.js') }}"></script>
 <script>
-    const graphDataUrl = "{{ url_for('graph.graph_data') }}";  
+    const graphDataUrl = "{{ url_for('graph.graph_data') }}";
 </script>
 {% endblock %}

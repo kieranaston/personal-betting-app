@@ -5,8 +5,8 @@
 </head>
 <body>
     <nav>
-        <h1>Betting App</h1>
-        <ul>
+        <h1 class="app-name">Betting App</h1>
+        <ul class="topnav">
             <li><a href="{{ url_for('graph.show_graph') }}">Home</a></li>
             <li><a href="{{ url_for('ev.index') }}">EV Calculator</a></li>
             <li><a href="{{ url_for('bets.view_bets') }}">Recent Bets</a></li>
@@ -14,7 +14,7 @@
     </nav>
     <section class="content">
         <header>
-            {% block header %}{% endblock %}
+            <h2 class="page-header">{% block header %}{% endblock %}</h2>
         </header>
         {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
