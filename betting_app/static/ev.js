@@ -54,7 +54,7 @@ function calculateEV() {
             kellyUnitsHTML += '</ul>';
             document.getElementById('ev-result').innerHTML = `
                 <p>EV: ${evPercentage}</p>
-                <p>Juice: ${juicePercentage}</p>
+                <p>Default juice: ${juicePercentage}</p>
                 <p>Kelly Units:</p>
                 ${kellyUnitsHTML}
             `;
@@ -113,7 +113,7 @@ function placeBet() {
     })
     .catch(error => {
         messageContainer.textContent = 'An error occurred while placing the bet.';
-        messageContainer.style.color = 'red'; 
+        messageContainer.style.color = 'red';
         console.error('Error:', error);
     });
 }

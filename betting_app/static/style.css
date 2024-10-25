@@ -129,6 +129,12 @@ form label {
   color: #cccccc;
 }
 
+#ev-result,
+#bet-details {
+    padding: 15px;
+    text-align: center;
+}
+
 /* Tables */
 table {
   width: 90%;

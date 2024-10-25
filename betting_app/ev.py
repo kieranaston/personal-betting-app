@@ -25,6 +25,7 @@ def place_bet():
         manual_units_placed = request.json.get('units_placed')
         if manual_units_placed:
             units_placed = float(manual_units_placed)
+            units_placed = round(units_placed)
         else:
             kelly_percentage = request.json.get('kelly_percentage')
             units_placed = round(kelly_units[kelly_percentage], 2)
@@ -65,8 +66,8 @@ def ev_calculator():
 
     juice = float(request.json.get('juice'))
     ev, juice, kelly_units = ev_calc.how_good(your_odds, other_odds, bankroll, unit_size, juice)
-    session['value'] = ev
-    session['juice'] = juice
+    session['value'] = round(ev, 2)
+    session['juice'] = round(juice, 2)
     session['kelly_units'] = kelly_units
     return jsonify({'ev': ev, 'juice': juice, 'kelly_units': kelly_units})
 
@@ -103,6 +104,7 @@ def get_latest_bankroll():
     db = get_db()
     last_bankroll_entry = db.execute("SELECT new_bankroll FROM bankroll_history ORDER BY date DESC LIMIT 1").fetchone()
     latest_bankroll = last_bankroll_entry['new_bankroll'] if last_bankroll_entry else 100
+    latest_bankroll = round(latest_bankroll, 2)
     return jsonify({'latest_bankroll': latest_bankroll})
 
 @ev_bp.route('/')

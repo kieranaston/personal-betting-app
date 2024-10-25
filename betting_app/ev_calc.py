@@ -1,6 +1,7 @@
 import re
 
 def implied_probability(odds):
+    print(f"Calculating implied probability for odds: {odds}")
     if '/' in odds:
         side1, side2 = odds.split('/')
         side1 = int(side1.strip())
@@ -9,16 +10,19 @@ def implied_probability(odds):
         prob1 = 100 / (side1 + 100) if side1 > 0 else abs(side1) / (abs(side1) + 100)
         prob2 = 100 / (side2 + 100) if side2 > 0 else abs(side2) / (abs(side2) + 100)
 
-        return f'{round(prob1, 4)}/{round(prob2, 4)}'
+        print(f"Implied Probabilities for {odds}: {prob1:.2f}, {prob2:.2f}")
+        return f'{prob1}/{prob2}'
     else:
         try:
             odds = int(odds.strip())
         except ValueError:
             print(f"Error: {odds} is not a valid integer.")
         if odds > 0:
-            return round(100 / (odds + 100), 4)
+            implied_prob = 100 / (odds + 100)
         else:
-            return round(abs(odds) / (abs(odds) + 100), 4)
+            implied_prob = abs(odds) / (abs(odds) + 100)
+        print(f"Single implied probability for {odds}: {implied_prob:.2f}")
+        return implied_prob
 
 
 def american_to_decimal(odds):
@@ -36,17 +40,22 @@ def dejuice(probability, juice=0.06):
 
         dejuiced_prob1 = prob1 / total_prob
         dejuiced_prob2 = prob2 / total_prob
-
-        return round(dejuiced_prob1, 4)
+        print(f"Dejuiced Probability for {prob1:.2f}/{prob2:.2f}: {dejuiced_prob1:.2f} @{juice} juice")
+        return dejuiced_prob1
     else:
         dejuiced_prob = float(probability) / (1 + juice)
-        return round(dejuiced_prob, 4)
+        print(f"Dejuiced Probability (single): {dejuiced_prob:.2f} @{juice} juice")
+        return dejuiced_prob
 
 def fv(dejuiced_probabilities):
-    return sum(dejuiced_probabilities) / len(dejuiced_probabilities)
+    average_prob = sum(dejuiced_probabilities) / len(dejuiced_probabilities)
+    print(f"Average Dejuiced Probability (Fair Value): {average_prob:.2f}")
+    return average_prob
 
 def ev(true_probability, your_decimal_odds):
-    return true_probability*your_decimal_odds - 1
+    ev_value = true_probability * your_decimal_odds - 1
+    print(f"EV Calculation: True Probability: {true_probability:.2f}, Your Decimal Odds: {your_decimal_odds:.2f}, EV: {ev_value:.2f}")
+    return ev_value
 
 
 def kelly(true_probability, your_decimal_odds, bankroll, unit_size):
