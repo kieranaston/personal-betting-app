@@ -1,0 +1,11 @@
+[project]
+name = "betting_app"  # Your project name
+version = "1.0.0"  # Version number
+description = "Basic personal betting app built with Fask and SQLite."  # Description of the project
+dependencies = [
+    "flask",  # Flask dependency (you can specify a version range if desired)
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
