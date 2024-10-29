@@ -52,7 +52,7 @@ I thought it would be a good exercise to better understand EV betting and the Ke
 
 One thing I did not like about many online tools is that you as a user are often having to trust the tools to provide you with profitable bets. I prefer my own personal system because it provides a balance between choosing the bets or sports that you feel confident betting, and from those bets choosing only the ones that give you the best edge. 
 
-## If I had more time what would I change
+## If I had more time what would I change?
 
 I have several ideas for things I would like to add to my web app in the future. First and foremost, I would like to begin using an odds API both for retrieving the best lines, as well as retrieving lines from other sportsbooks for bets I am interested in. Right now I do all of this manually (luckily I am able to access this informatioxn all in one place for the most part, however, the manual odds entry into my app does take time), and I believe it would make my system much more efficient to achieve this with an API instead. 
 
