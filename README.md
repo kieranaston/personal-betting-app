@@ -58,4 +58,4 @@ I have several ideas for things I would like to add to my web app in the future.
 
 Another thing I want to add is more visualizations of my betting statistics. I intend to include a page solely for visualizations, and include things such as a calendar of the last month with graded coloring for each day indicating how much in the green or how much in the red I was for that given day, along with the dollar amount of loss/profit on that day. I'm sure there are many other insights I could add in addition to that idea. 
 
-
+[^1]: Tutorial - Flask Documentation (3.0.x). (n.d.). https://flask.palletsprojects.com/en/stable/tutorial/ 
