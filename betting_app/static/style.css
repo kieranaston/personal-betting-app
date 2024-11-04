@@ -1,8 +1,8 @@
 /* Body */
 body {
     margin: 0;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     font-family: Arial, sans-serif;
     font-weight: bold;
 }
@@ -19,20 +19,20 @@ ul.topnav {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #1e1e1e;
+    background-color: #d3d3d3;
 }
 
 ul.topnav li {float: left;}
 
 ul.topnav li a {
     display: block;
-    color: white;
+    color: #000000;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-ul.topnav li a:hover {background-color: #534b4f;}
+ul.topnav li a:hover {background-color: #a9a9a9;}
 
 @media screen and (max-width: 600px) {
     ul.topnav li.right,
@@ -40,7 +40,7 @@ ul.topnav li a:hover {background-color: #534b4f;}
 }
 
 li {
-  border-right: 1px solid #bbb;
+  border-right: 3px solid #000000;
 }
 
 li:last-child {
@@ -53,11 +53,6 @@ h1 {
   font-weight: bold;
   text-align: left;
   color: #000000;
-  text-shadow:
-    -1px -1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff;
   margin-bottom: 30px;
   margin-top: 30px;
   margin-left: 15px;
@@ -65,7 +60,7 @@ h1 {
 
 h2 {
   font-size: 2rem;
-  color: #ffffff;
+  color: #000000;
   font-weight: bold;
   text-align: center;
   margin-bottom: 15px;
@@ -82,15 +77,14 @@ h2 {
 
 /* Forms */
 form {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  border: none;
+  background-color: #f5f5f5;
+  color: #000000;
   padding: 20px;
   margin: 20px auto;
   max-width: 500px;
-  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
   text-align: left;
+  border: 1px solid #dddddd;
 }
 
 form input,
@@ -100,25 +94,24 @@ form button {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
-  background-color: #2a2a2a;
-  color: #e0e0e0;
+  background-color: #d3d3d3;
+  color: #000000;
   border: none;
   border-radius: 4px;
-  box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.1);
-  font-weight: bold;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-weight: normal;
+  transition: background-color 0.3s ease;
 }
 
 form input:hover,
 form select:hover,
 form button:hover {
-  background-color: #333333;
-  box-shadow: 0px 3px 8px rgba(255, 255, 255, 0.15);
+  background-color: #a9a9a9;
 }
 
 form button {
   cursor: pointer;
   width: auto;
+  font-weight: bold;
   padding: 10px 20px;
 }
 
@@ -126,7 +119,7 @@ form label {
   font-weight: bold;
   margin-bottom: 5px;
   display: block;
-  color: #cccccc;
+  color: #000000;
 }
 
 #ev-result,
@@ -139,68 +132,64 @@ form label {
 table {
   width: 90%;
   margin: 20px auto;
-  border-spacing: 0;
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
 table thead th {
-  background-color: #2a2a2a;
-  color: #cccccc;
+  background-color: #d3d3d3;
+  color: #000000;
   font-weight: bold;
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #444444;
+  border: 2px solid #444444;
+}
+
+table tbody tr {
+  border: 1px solid #dddddd;
+  color: #000000;
 }
 
 table tbody tr:nth-child(odd) td {
-  background-color: #252525;
+  background-color: #f5f5f5;
 }
 table tbody tr:nth-child(even) td {
-  background-color: #1e1e1e;
+  background-color: #ffffff;
 }
 
 table td {
+  font-weight: normal;
+  border: 1px solid #dddddd;
   padding: 12px;
 }
 
 table select {
-  background-color: #2a2a2a;
-  color: #e0e0e0;
+  background-color: #d3d3d3;
+  color: #000000;
   border: none;
   padding: 8px;
   border-radius: 4px;
-  box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.1);
-  font-weight: bold;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-weight: normal;
+  transition: background-color 0.3s ease;
 }
 
 table select:hover {
-  background-color: #333333;
-  box-shadow: 0px 3px 8px rgba(255, 255, 255, 0.15);
-}
-
-table .profit-loss {
-  font-weight: bold;
-  color: #e0e0e0;
+  background-color: #a9a9a9;
 }
 
 #backup-btn {
-  background-color: #2a2a2a;
-  color: #e0e0e0;
+  background-color: #d3d3d3;
+  color: #000000;
   border: none;
   padding: 10px 20px;
   margin: 20px 5%;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
   border-radius: 4px;
 }
 
 #backup-btn:hover {
-  background-color: #555555;
+  background-color: #a9a9a9;
 }

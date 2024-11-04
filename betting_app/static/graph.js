@@ -13,9 +13,9 @@ function renderGraph() {
                 datasets: [{
                     label: 'Bankroll',
                     data: bankrolls,
-                    borderColor: '#ffffff',
-                    pointBackgroundColor: '#000000',
-                    pointBorderColor: '#ffffff',
+                    borderColor: '#000000',
+                    pointBackgroundColor: 'rgba(255, 255, 255, 0)',
+                    pointBorderColor: '#000000',
                     pointRadius: 5,
                     pointHoverRadius: 7,
                     fill: false,
@@ -40,7 +40,8 @@ function renderGraph() {
                             },
                             title: {
                                 display: true,
-                                text: 'Date and Time'
+                                text: 'Date and Time',
+                                color: '#000000'
                             },
                             ticks: {
                                 autoSkip: true,
@@ -48,20 +49,25 @@ function renderGraph() {
                                 maxRotation: 0,
                                 minRotation: 0,
                                 align: 'center',
+                                color: '#000000',
                             },
                             grid: {
                                 display: true,
-                                color: 'rgba(255, 255, 255, 0.2)'
+                                color: '#d3d3d3'
                             }
                         },
                         y: {
                             title: {
                                 display: true,
-                                text: 'Bankroll ($)'
+                                text: 'Bankroll ($)',
+                                color: '#000000'
+                            },
+                            ticks: {
+                                color: '#000000'
                             },
                             grid: {
                                 display: true,
-                                color: 'rgba(255, 255, 255, 0.2)'
+                                color: '#d3d3d3'
                             }
                         }
                     },
