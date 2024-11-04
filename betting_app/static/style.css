@@ -39,7 +39,7 @@ ul.topnav li a:hover {background-color: #a9a9a9;}
     ul.topnav li {float: none;}
 }
 
-li {
+ul.topnav li {
   border-right: 3px solid #000000;
 }
 
@@ -192,4 +192,15 @@ table select:hover {
 
 #backup-btn:hover {
   background-color: #a9a9a9;
+}
+
+#backup-message-container {
+  margin: 5px 5%;
+  font-weight: bold;
+}
+
+#ev-result, #bet-details {
+  margin: 5px auto;
+  max-width: 500px;
+  text-align: left;
 }
