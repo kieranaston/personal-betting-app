@@ -10,15 +10,21 @@ bets_bp = Blueprint('bets', __name__, url_prefix='/bets')
 @bets_bp.route('/view-bets', methods=['GET'])
 def view_bets():
     db = get_db()
-    end_date = request.args.get('end_date', datetime.now().strftime('%Y-%m-%d'))
-    start_date = request.args.get('start_date', (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d'))
+    end_date = request.args.get('end_date')
+    start_date = request.args.get('start_date')
+    if not end_date:
+        end_date = datetime.now().strftime('%Y-%m-%d')
+    if not start_date:
+        start_date = (datetime.now() - timedelta(days=100)).strftime('%Y-%m-%d')
+    if start_date > end_date:
+        error_message = 'Start date cannot be after the end date.'
+        return render_template('bets.html', error_message=error_message, start_date=start_date, end_date=end_date)
     query = """
         SELECT * FROM bets
         WHERE DATE(date) BETWEEN ? AND ?
         ORDER BY date DESC
     """
     bets = db.execute(query, (start_date, end_date)).fetchall()
-
     return render_template('bets.html', bets=bets, start_date=start_date, end_date=end_date)
 
 @bets_bp.route('/update-bet-status/<int:bet_id>', methods=['POST'])

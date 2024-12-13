@@ -5,6 +5,22 @@
 {% endblock %}
 
 {% block content %}
+<div id="form-container">
+    <form id="bet-filter-form" action="/bets/view-bets" method="get">
+        <div>
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="start_date" required>
+        </div>
+        <div>
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" name="end_date" required>
+        </div>
+        <button type="button" id="filter-bets-btn" action="/bets/view-bets" method="get">Filter Bets</button>
+    {% if error_message %}
+        <p id="error-message" class="date-error" style="color: red; margin-left: 0;">{{ error_message }}</p>
+    {% endif %}
+    </form>
+</div>
 <table>
     <thead>
         <tr>
@@ -19,6 +35,7 @@
             <th>Default Juice</th>
             <th>Status</th>
             <th>Profit/Loss</th>
+            <th>Delete Bet</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +58,9 @@
                 </select>
             </td>
             <td class="profit-loss" id="profit-loss-{{ bet.id }}">{{ bet.profit_loss }}</td>
+            <td>
+                <button class="delete-btn" onclick="deleteBet('/bets/delete-bet/{{ bet.id }}')">Delete</button>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

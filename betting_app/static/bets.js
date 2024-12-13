@@ -83,3 +83,7 @@ function updateBankroll(url) {
         console.error('Error updating bankroll:', error);
     });
 }
+
+document.getElementById('filter-bets-btn').addEventListener('click', function() {
+    document.getElementById('bet-filter-form').submit();  // Submit the form
+}); 
