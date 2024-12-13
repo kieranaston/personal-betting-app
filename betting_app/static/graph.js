@@ -16,10 +16,10 @@ function renderGraph() {
                     borderColor: '#000000',
                     pointBackgroundColor: 'rgba(255, 255, 255, 0)',
                     pointBorderColor: '#000000',
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    fill: false,
-                    tension: 0.1
+                    pointRadius: 4.5,
+                    pointHoverRadius: 6,
+                    fill: true,
+                    backgroundColor: 'rgba(169, 169, 169, 0.2)'
                 }]
             };
             const config = {
@@ -31,25 +31,24 @@ function renderGraph() {
                         x: {
                             type: 'time',
                             time: {
-                                unit: 'minute',
-                                tooltipFormat: 'MMM dd, yyyy HH:mm',
+                                unit: 'day',
+                                tooltipFormat: 'MMM dd, yyyy',
                                 displayFormats: {
-                                    minute: 'MMM dd, HH:mm',
-                                    hour: 'MMM dd, HH:mm',
+                                    day: 'MMM dd',
                                 }
                             },
-                            title: {
-                                display: true,
-                                text: 'Date and Time',
-                                color: '#000000'
-                            },
                             ticks: {
+                                color: '#000000',
                                 autoSkip: true,
                                 maxTicksLimit: 10,
                                 maxRotation: 0,
                                 minRotation: 0,
                                 align: 'center',
-                                color: '#000000',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Date',
+                                color: '#000000'
                             },
                             grid: {
                                 display: true,
@@ -57,12 +56,13 @@ function renderGraph() {
                             }
                         },
                         y: {
+                            ticks: {
+                                color: '#000000',
+                                stepSize: 10,
+                            },
                             title: {
                                 display: true,
                                 text: 'Bankroll ($)',
-                                color: '#000000'
-                            },
-                            ticks: {
                                 color: '#000000'
                             },
                             grid: {
@@ -76,6 +76,9 @@ function renderGraph() {
                             backgroundColor: 'rgba(0, 0, 0, 0.8)',
                             titleColor: '#ffffff',
                             bodyColor: '#ffffff'
+                        },
+                        legend: {
+                            display: false  
                         }
                     }
                 }

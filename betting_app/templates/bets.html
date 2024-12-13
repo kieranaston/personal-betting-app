@@ -47,9 +47,9 @@
             <td>{{ bet.unit_size }}</td>
             <td>{{ bet.your_odds }}</td>
             <td>{{ bet.other_odds }}</td>
-            <td>{{ (bet.ev * 100) | round(2) }}%</td>
-            <td>{{ bet.units_placed | round(2) }}</td>
-            <td>{{ (bet.juice * 100) | round(2) }}%</td>
+            <td>{{ (bet.ev * 100) | round(4) }}%</td>
+            <td>{{ bet.units_placed | round(4) }}</td>
+            <td>{{ (bet.juice * 100) | round(4) }}%</td>
             <td>
                 <select onchange="updateBetStatus('/bets/update-bet-status/{{ bet.id }}', this.value)">
                     <option value="not settled" {% if bet.outcome == 'not settled' %}selected{% endif %}>Not Settled</option>

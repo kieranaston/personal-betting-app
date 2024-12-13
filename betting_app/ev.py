@@ -66,8 +66,8 @@ def ev_calculator():
 
     juice = float(request.json.get('juice'))
     ev, juice, kelly_units = ev_calc.how_good(your_odds, other_odds, bankroll, unit_size, juice)
-    session['value'] = round(ev, 2)
-    session['juice'] = round(juice, 2)
+    session['value'] = round(ev, 4)
+    session['juice'] = round(juice, 3)
     session['kelly_units'] = kelly_units
     return jsonify({'ev': ev, 'juice': juice, 'kelly_units': kelly_units})
 
