@@ -7,12 +7,12 @@
 {% block content %}
 <form id="ev-calc-form">
     <div id="bankroll-entry">
-        <label for="enter-bankroll">Bankroll:</label>
-        <input id="enter-bankroll" name="bankroll" placeholder="$" required>
+        <label for="enter-bankroll">Bankroll ($):</label>
+        <input id="enter-bankroll" name="bankroll" required>
     </div>
     <div id="unit-size-entry">
-        <label for="enter-unit-size">Unit size:</label>
-        <input id="enter-unit-size" name="unit-size" placeholder="$" required>
+        <label for="enter-unit-size">Unit size ($):</label>
+        <input id="enter-unit-size" name="unit-size" required>
     </div>
     <div id="odds-entry">
         <label for="enter-your-odds">Your odds:</label>
@@ -20,10 +20,10 @@
     </div>
     <div id="other-odds-entry">
         <label for="enter-other-odds">Other odds:</label>
-        <input id="enter-other-odds" name="other-odds" placeholder="'150, 155, 135...'" required>
+        <input id="enter-other-odds" name="other-odds" placeholder="Separate legs with commas, enclose multiple lines within avg()" required>
     </div>
     <div id="juice-entry">
-        <label for="juice">Default juice:</label>
+        <label for="juice">Default juice (%):</label>
         <input id="juice" name="juice" step="0.01" placeholder="0.06" value="0.06">
     </div>
     <button type="submit">Calculate EV and Kelly</button>
@@ -37,7 +37,7 @@
         <input id="bet-name" name="bet-name" placeholder="Enter the name of the bet" required>
     </div>
     <div id="kelly-percentage-entry">
-        <label for="kelly-percentage">Select Kelly Percentage:</label>
+        <label for="kelly-percentage">Select Kelly percentage:</label>
         <select id="kelly-percentage" name="kelly-percentage">
             <option value="100% Kelly">100%</option>
             <option value="75% Kelly">75%</option>
@@ -65,5 +65,6 @@
     const placeBetUrl = "{{ url_for('ev.place_bet') }}";
     const getBetUrl = "{{ url_for('ev.get_bet', bet_id=0) }}";
     const latestBankrollUrl = "{{ url_for('ev.get_latest_bankroll') }}";
+    const latestUnitSizeUrl = "{{ url_for('ev.get_latest_unit_size') }}";
 </script>
 {% endblock %}

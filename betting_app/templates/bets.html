@@ -35,7 +35,6 @@
             <th>Default Juice</th>
             <th>Status</th>
             <th>Profit/Loss</th>
-            <th>Delete Bet</th>
         </tr>
     </thead>
     <tbody>
@@ -58,9 +57,6 @@
                 </select>
             </td>
             <td class="profit-loss" id="profit-loss-{{ bet.id }}">{{ bet.profit_loss }}</td>
-            <td>
-                <button class="delete-btn" onclick="deleteBet('/bets/delete-bet/{{ bet.id }}')">Delete</button>
-            </td>
         </tr>
         {% endfor %}
     </tbody>

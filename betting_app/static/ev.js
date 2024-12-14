@@ -9,6 +9,11 @@ document.getElementById('place-bet-form').addEventListener('submit', function(ev
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+    fetchLatestBankroll();
+    fetchLatestUnitSize();
+});
+
+function fetchLatestBankroll() {
     fetch(latestBankrollUrl, {
         method: 'GET'
     })
@@ -20,7 +25,21 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => {
         console.error('Error fetching latest bankroll:', error);
     });
-});
+}
+
+function fetchLatestUnitSize() {
+    fetch(latestUnitSizeUrl, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        const unitSizeField = document.getElementById('enter-unit-size');
+        unitSizeField.value = data.latest_unit_size.toFixed(2);
+    })
+    .catch(error => {
+        console.error('Error fetching latest unit size', error);
+    });
+}
 
 function calculateEV() {
     const bankroll = document.getElementById('enter-bankroll').value;

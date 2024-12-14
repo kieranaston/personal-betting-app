@@ -107,6 +107,13 @@ def get_latest_bankroll():
     latest_bankroll = round(latest_bankroll, 2)
     return jsonify({'latest_bankroll': latest_bankroll})
 
+@ev_bp.route('/get-latest-unit-size', methods=['GET'])
+def get_latest_unit_size():
+    db = get_db()
+    latest_unit_size = db.execute("SELECT unit_size FROM bankroll_history ORDER BY date DESC LIMIT 1").fetchone()
+    latest_unit_size = latest_unit_size['unit_size'] if latest_unit_size else 1.00
+    return jsonify({'latest_unit_size': latest_unit_size})
+
 @ev_bp.route('/')
 def index():
     return render_template('ev.html')
