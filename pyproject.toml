@@ -1,11 +1,31 @@
 [project]
-name = "betting_app"  # Your project name
-version = "1.0.0"  # Version number
-description = "Basic personal betting app built with Fask and SQLite."  # Description of the project
+name = "betting_app"
+version = "0.0.1"
+authors = [
+    { name="Kieran Aston", email="kieranaston1@gmail.com" },
+]
+description = "A Flask-based EV calculator and bet tracker."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Framework :: Flask",
+]
 dependencies = [
-    "flask",  # Flask dependency (you can specify a version range if desired)
+    "blinker==1.8.2",
+    "click==8.1.7",
+    "Flask==3.0.3",
+    "itsdangerous==2.2.0",
+    "Jinja2==3.1.4",
+    "MarkupSafe==3.0.1",
+    "Werkveug==3.0.4",
 ]
 
+[project.urls]
+Homepage = "https://github.com/kieranaston/personal-betting-app"
+
 [build-system]
-requires = ["flit_core<4"]
+requires = ["flit_core>=3.4"]
 build-backend = "flit_core.buildapi"
