@@ -34,6 +34,10 @@ def create_app(test_config=None):
     app.register_blueprint(graph.graph_bp)
 
     from . import backups
-    app.register_blueprint(backups.backup_bp) 
+    app.register_blueprint(backups.backup_bp)
+
+    @app.route('/hello')
+    def hello():
+        return 'Hello, World!'
 
     return app
