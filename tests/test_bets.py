@@ -126,3 +126,64 @@ def test_update_profit_loss_lost_bet(client, app):
         assert bet is not None
         expected_profit_loss = -bet['units_placed']
         assert bet['profit_loss'] == expected_profit_loss
+
+def test_update_bankroll_success(client, app):
+    # Prepare test data: A bet with profit_loss, unit_size, and bankroll
+    test_bet_id = 1  # Use an existing bet ID
+
+    response = client.post(f'/bets/update-bankroll/{test_bet_id}')
+
+    assert response.status_code == 200
+    response_data = response.get_json()
+    assert response_data['message'] == 'Bankroll updated successfully'
+
+    with app.app_context():
+        db = get_db()
+        bet = db.execute(
+            "SELECT * FROM bets WHERE id = ? ORDER BY date DESC LIMIT 1",
+            (test_bet_id,)
+        ).fetchone()
+        bankroll_entry = db.execute(
+            "SELECT * FROM bankroll_history WHERE bet_id = ? ORDER BY date DESC LIMIT 1",
+            (test_bet_id,)
+        ).fetchone()
+
+        assert bankroll_entry is not None
+        assert bankroll_entry['change'] == bet['profit_loss'] * bet['unit_size'] # Ensure the bankroll was updated correctly
+
+def test_update_bankroll_no_profit_loss(client, app):
+    # Prepare test data: A bet with no profit_loss (i.e., outcome that results in zero profit/loss)
+    test_bet_id = 4  # Use an existing bet ID that results in no profit/loss
+
+    response = client.post(f'/bets/update-bankroll/{test_bet_id}')
+
+    with app.app_context():
+        db = get_db()
+        bankroll_entry = db.execute(
+            "SELECT new_bankroll FROM bankroll_history WHERE bet_id = ? ORDER BY date DESC LIMIT 1",
+            (test_bet_id,)
+        ).fetchone()
+        previous = bankroll_entry['new_bankroll']
+
+    assert response.status_code == 200
+    response_data = response.get_json()
+    assert response_data['message'] == 'No profit/loss to update for this bet.'
+
+    with app.app_context():
+        db = get_db()
+        bankroll_entry = db.execute(
+            "SELECT new_bankroll FROM bankroll_history WHERE bet_id = ? ORDER BY date DESC LIMIT 1",
+            (test_bet_id,)
+        ).fetchone()
+
+        assert bankroll_entry is not None
+        assert bankroll_entry['new_bankroll'] == previous  # Ensure no change in bankroll
+
+def test_update_bankroll_bet_not_found(client):
+    non_existent_bet_id = 999  # Assuming this ID doesn't exist
+
+    response = client.post(f'/bets/update-bankroll/{non_existent_bet_id}')
+
+    assert response.status_code == 404
+    response_data = response.get_json()
+    assert response_data['error_message'] == 'Bet not found'
