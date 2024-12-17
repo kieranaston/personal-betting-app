@@ -22,6 +22,6 @@ CREATE TABLE bankroll_history (
     date TEXT NOT NULL,
     unit_size REAL NOT NULL,
     change REAL NOT NULL,
-    new_bankroll REAL NOT NULL,  
+    new_bankroll REAL NOT NULL,
     FOREIGN KEY (bet_id) REFERENCES bets(id) ON DELETE CASCADE
 );

@@ -36,8 +36,13 @@ def update_bet_status(bet_id):
     new_status = request.form.get('status')
     if not new_status:
         return jsonify({'error': 'Invalid status'}), 400
+
     query = "UPDATE bets SET outcome = ? WHERE id = ?"
-    db.execute(query, (new_status, bet_id))
+    result = db.execute(query, (new_status, bet_id))
+
+    if result.rowcount == 0:  # No rows were updated
+        return jsonify({'error': 'Bet not found'}), 400
+
     db.commit()
     return jsonify({'message': 'Bet status updated successfully'}), 200
 
@@ -45,13 +50,19 @@ def update_bet_status(bet_id):
 def update_profit_loss(bet_id):
     db = get_db()
     bet = db.execute("SELECT * FROM bets WHERE id = ?", (bet_id,)).fetchone()
+    if not bet:
+            return jsonify({'error_message': 'Bet not found'}), 404
+
     if bet['outcome'] == 'won':
         odds = ev_calc.american_to_decimal(bet['your_odds'])
         profit_loss = (bet['units_placed'] * odds) - bet['units_placed']
     elif bet['outcome'] == 'lost':
         profit_loss = -bet['units_placed']
-    else:
+    elif bet['outcome'] == 'not settled':
         profit_loss = 0
+    else:
+        return jsonify({'error_message': 'Invalid bet outcome'}), 400
+
     profit_loss = round(profit_loss, 2)
     db.execute("UPDATE bets SET profit_loss = ? WHERE id = ?", (profit_loss, bet_id))
     db.commit()
