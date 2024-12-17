@@ -92,3 +92,37 @@ def test_update_profit_loss_winning_bet(client, app):
         expected_profit_loss = round(expected_profit_loss, 2)
         assert bet['profit_loss'] == expected_profit_loss
 
+def test_update_profit_loss_invalid_bet_outcome(client):
+
+    # Prepare test data: A bet with an invalid outcome
+    test_bet_id = 3  # Use an existing bet
+    response = client.post(f'/bets/update-profit-loss/{test_bet_id}')  # Invalid outcome
+
+    assert response.status_code == 400
+    response_data = response.get_json()
+    assert response_data['error_message'] == 'Invalid bet outcome'
+
+def test_update_profit_loss_non_existent_bet(client):
+    # Non-existent bet ID
+    non_existent_bet_id = 999
+    response = client.post(f'/bets/update-profit-loss/{non_existent_bet_id}')
+
+    assert response.status_code == 404
+    response_data = response.get_json()
+    assert response_data['error_message'] == 'Bet not found'
+
+def test_update_profit_loss_lost_bet(client, app):
+    test_bet_id = 2  # Use an existing bet with 'lost' outcome
+    response = client.post(f'/bets/update-profit-loss/{test_bet_id}')
+
+    assert response.status_code == 200
+    response_data = response.get_json()
+    assert response_data['message'] == 'Profit/Loss updated successfully'
+
+    # Verify the profit/loss in the database
+    with app.app_context():
+        db = get_db()
+        bet = db.execute('SELECT * FROM bets WHERE id = ?', (test_bet_id,)).fetchone()
+        assert bet is not None
+        expected_profit_loss = -bet['units_placed']
+        assert bet['profit_loss'] == expected_profit_loss
