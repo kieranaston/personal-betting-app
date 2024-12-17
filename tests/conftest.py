@@ -6,7 +6,7 @@ import pytest
 from betting_app import create_app
 from betting_app.db import get_db, init_db
 
-BACKUP_FILE_PATH = os.path.join(os.path.dirname(__file__), '..', 'backups', 'betting_app_backup_2024-12-13.sqlite')
+BACKUP_FILE_PATH = os.path.join(os.path.dirname(__file__), 'betting_app_backup_2024-12-13.sqlite')
 
 @pytest.fixture
 def app():
