@@ -6,29 +6,31 @@ import pytest
 from betting_app import create_app
 from betting_app.db import get_db, init_db
 
-BACKUP_FILE_PATH = os.path.join(os.path.dirname(__file__), 'betting_app_backup_2024-12-13.sqlite')
+# Read data.sql directly without decoding
+with open(os.path.join(os.path.dirname(__file__), 'data.sql'), 'rb') as f:
+    _data_sql = f.read().decode('utf8')
 
 @pytest.fixture
 def app():
     db_fd, db_path = tempfile.mkstemp()
-
-    shutil.copyfile(BACKUP_FILE_PATH, db_path)
 
     app = create_app({
         'TESTING': True,
         'DATABASE': db_path,
     })
 
+    with app.app_context():
+        init_db()
+        get_db().executescript(_data_sql)
+
     yield app
 
     os.close(db_fd)
     os.unlink(db_path)
 
-
 @pytest.fixture
 def client(app):
     return app.test_client()
-
 
 @pytest.fixture
 def runner(app):

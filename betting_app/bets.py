@@ -25,6 +25,9 @@ def view_bets():
         ORDER BY date DESC
     """
     bets = db.execute(query, (start_date, end_date)).fetchall()
+    if not bets:
+        error_message = "No bets found for the specified date range."
+        return render_template('bets.html', error_message=error_message, start_date=start_date, end_date=end_date)
     return render_template('bets.html', bets=bets, start_date=start_date, end_date=end_date)
 
 @bets_bp.route('/update-bet-status/<int:bet_id>', methods=['POST'])
