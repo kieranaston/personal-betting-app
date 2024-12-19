@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from flask import g
 from betting_app import create_app
+from unittest.mock import patch
 
 
 def test_backup_db(client):

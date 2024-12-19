@@ -90,31 +90,27 @@ def ev_calculator():
 @ev_bp.route('/get-bet/<int:bet_id>', methods=['GET'])
 def get_bet(bet_id):
     print(bet_id)
-    try:
-        db = get_db()
-        bet = db.execute(
-            'SELECT * FROM bets WHERE id = ?',
-            (bet_id,)
-        ).fetchone()
+    db = get_db()
+    bet = db.execute(
+        'SELECT * FROM bets WHERE id = ?',
+        (bet_id,)
+    ).fetchone()
 
-        if bet is None:
-            return jsonify({'error': 'Bet not found'}), 404
+    if bet is None:
+        return jsonify({'error': 'Bet not found'}), 404
 
-        return jsonify({
-            'bet_id': bet['id'],
-            'bet_name': bet['bet_name'],
-            'date': bet['date'],
-            'bankroll': bet['bankroll'],
-            'unit_size': bet['unit_size'],
-            'your_odds': bet['your_odds'],
-            'other_odds': bet['other_odds'],
-            'ev': bet['ev'],
-            'units_placed': bet['units_placed'],
-            'juice': bet['juice'],
-            'message': 'Bet retrieved successfully'}), 200
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    return jsonify({
+        'bet_id': bet['id'],
+        'bet_name': bet['bet_name'],
+        'date': bet['date'],
+        'bankroll': bet['bankroll'],
+        'unit_size': bet['unit_size'],
+        'your_odds': bet['your_odds'],
+        'other_odds': bet['other_odds'],
+        'ev': bet['ev'],
+        'units_placed': bet['units_placed'],
+        'juice': bet['juice'],
+        'message': 'Bet retrieved successfully'}), 200
 
 @ev_bp.route('/get-latest-bankroll', methods=['GET'])
 def get_latest_bankroll():

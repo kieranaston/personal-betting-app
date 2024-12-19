@@ -12,6 +12,18 @@ def test_place_bet_valid_input(client):
         assert response.status_code == 200
         assert b'Bet placed successfully.' in response.data
 
+def test_place_bet_no_manual_units(client):
+    with client as c:
+        with client.session_transaction() as session:
+        # Set session variables
+            session['value'] = 0.3
+            session['kelly_units'] = {0.25: 0.3}
+            session['juice'] = 0.06
+        response = c.post('/ev/place-bet', json={'bankroll': '100.00', 'unit_size': 1.0, 'your_odds': 150, 'other_odds': '150, 160',
+                                                 'kelly_percentage': '0.25', 'bet_name': 'Test Bet'})
+        assert response.status_code == 200
+        assert b'Bet placed successfully.' in response.data
+
 def test_place_bet_invalid_input(client):
     with client as c:
         with client.session_transaction() as session:
@@ -88,7 +100,7 @@ def test_get_latest_unit_size(client):
 
 def test_index_route(client):
     # Send a GET request to the index route
-    response = client.get('/')
+    response = client.get('/ev/')
 
     # Assert the status code is 200
     assert response.status_code == 200

@@ -14,6 +14,13 @@ def test_view_bets_valid_range(client):
     assert b'Test Bet 1' in response.data or b'Test Bet 2' in response.data
     assert b'won' in response.data or b'lost' in response.data
 
+def test_view_bets_missing_start_date(client):
+    response = client.get('/bets/view-bets')
+    assert response.status_code == 200
+    # Check that the default start_date (100 days ago) is applied.
+    # You might want to verify specific content in the response if necessary.
+    assert b'Test Bet 1' in response.data or b'Test Bet 2' in response.data
+
 def test_view_bets_invalid_date_range(client):
     start_date = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
     end_date = datetime.now().strftime('%Y-%m-%d')
@@ -127,6 +134,20 @@ def test_update_profit_loss_lost_bet(client, app):
         assert bet is not None
         expected_profit_loss = -bet['units_placed']
         assert bet['profit_loss'] == expected_profit_loss
+
+def test_update_profit_loss_not_settled(client, app):
+    test_bet_id = 5
+    response = client.post(f'/bets/update-profit-loss/{test_bet_id}')
+    assert response.status_code == 200
+    response_data = response.get_json()
+    assert response_data['message'] == 'Profit/Loss updated successfully'
+    with app.app_context():
+        db = get_db()
+        bet = db.execute('SELECT * FROM bets WHERE id = ?', (test_bet_id,)).fetchone()
+        assert bet is not None
+        expected_profit_loss = 0
+        assert bet['profit_loss'] == expected_profit_loss
+
 
 def test_update_bankroll_success(client, app):
     # Prepare test data: A bet with profit_loss, unit_size, and bankroll
