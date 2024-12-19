@@ -76,7 +76,7 @@ def update_bankroll(bet_id):
     bet = db.execute("SELECT * FROM bets WHERE id = ?", (bet_id,)).fetchone()
     if not bet:
         return jsonify({'error_message': 'Bet not found'}), 404
-    
+
     new_change = bet['profit_loss'] * bet['unit_size'] if bet['profit_loss'] is not None else 0
     previous_entry = db.execute("SELECT * FROM bankroll_history WHERE bet_id = ? ORDER BY date DESC LIMIT 1", (bet_id,)).fetchone()
     last_bankroll_entry = db.execute("SELECT new_bankroll FROM bankroll_history ORDER BY date DESC LIMIT 1").fetchone()

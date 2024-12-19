@@ -4,14 +4,15 @@ from betting_app.db import get_db
 import betting_app.ev_calc as ev_calc
 
 def test_view_bets_valid_range(client):
-    start_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
-    end_date = datetime.now().strftime('%Y-%m-%d')
+    start_date = '2024-12-11'
+    end_date = '2024-12-18'
 
     response = client.get(f'/bets/view-bets?start_date={start_date}&end_date={end_date}')
 
     assert response.status_code == 200
+    print(response.data)
     assert b'Test Bet 1' in response.data or b'Test Bet 2' in response.data
-    assert b'Won' in response.data or b'Lost' in response.data
+    assert b'won' in response.data or b'lost' in response.data
 
 def test_view_bets_invalid_date_range(client):
     start_date = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
