@@ -6,7 +6,7 @@ graph_bp = Blueprint('graph', __name__)
 @graph_bp.route('/')
 def show_graph():
     # Renders the HTML page where the graph will be displayed
-    return render_template('graph.html')
+    return render_template('graph.html'), 200
 
 @graph_bp.route('/graph', methods=['GET'])
 def graph_data():
@@ -18,7 +18,7 @@ def graph_data():
 
     # Formats data as a list of dictionaries for JSON response
     data = [
-        {'date': entry['date'], 'new_bankroll': entry['new_bankroll']}
+        {'date': entry['date'], 'new_bankroll': entry['new_bankroll'], 'message': 'Graph data retrieved successfully.'}
         for entry in bankroll_history
     ]
-    return jsonify(data)
+    return jsonify(data), 200
