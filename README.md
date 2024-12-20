@@ -1,23 +1,26 @@
 # EV Calculator & Betting Tracker App
 
-A minimalistic EV calculator and bet tracker.
+A simple EV calculator and bet tracker.
 
 * Expected value and Kelly criterion calculation for singles and parlays, whether you have both sides available or not
-* Bets are evaluated based on their quality and users can place them with one of the suggested unit sizes (based on their bankroll) or with a custom unit size
+* Bets are evaluated based on their quality and users can place them with one of the suggested amounts (based on their bankroll and unit size) or with a custom amount
 * Recent bets can be viewed and set as either a win, loss, or not settled
 * Profit and loss is adjusted based on the results of bets
 * A simple line graph showing the user's bankroll is displayed on the home page of the app
+* Users can select a data range for viewing bets
+* The database can be backed up to an .sqlite file
 
 ## Table of Contents
 - [How to navigate this project](#how-to-navigate-this-project)
-- [Why?](#why-i-built-this-project)
-- [If I had more time what would I change](#if-i-had-more-time-what-would-i-change)
+- [How to install this project](#how-to-install-this-project)
+- [Things I'd like to add](#features-id-like-to-add-in-the-future)
 
- ## How to navigate this project
+ ## Navigating this project
 
 The file structure:
 
 ```
+├── LICENSE
 ├── README.md
 ├── betting_app
 │   ├── __init__.py
@@ -39,29 +42,46 @@ The file structure:
 │       ├── ev.html
 │       └── graph.html
 ├── pyproject.toml
-└── requirements.txt
+├── requirements.txt
+└── tests
+    ├── conftest.py
+    ├── data.sql
+    ├── test_backup.py
+    ├── test_bets.py
+    ├── test_db.py
+    ├── test_ev.py
+    ├── test_ev_calc.py
+    ├── test_factory.py
+    └── test_graph.py
 ```
 
-## Why I built this project
+## How to install this project
 
-I am not big on sports betting, however, I was interested in experienting with particular betting strategies and how much success I might have with them. Many tools for this sort of thing are available online, but are often behind a paywall and/or superfluous and complicated to use.
+Clone this repository: `git clone https://github.com/kieranaston/personal-betting-app.git`
 
-For my application build and database implementation I followed [this Flask tutorial](https://flask.palletsprojects.com/en/stable/tutorial/)[^1].
+Set up and activate a virtual environment in the project directory:
 
-I thought it would be a good exercise to better understand EV betting and the Kelly criterion to implement it myself in my own web app. Additionally, I wanted a web app to keep track of all my bets as well as my bankroll over time so that I could easily see how good a bet is, what I should put on it, and what my bankroll is looking like all in one convenient place.
+```
+python3 -m venv .venv
+. .venv/bin/activate
+```
 
-One thing I did not like about many online tools is that you as a user are often having to trust the tools to provide you with profitable bets. I prefer my own personal system because it provides a balance between choosing the bets or sports that you feel confident betting, and from those bets choosing only the ones that give you the best edge.
+Install the project in the virtual environment: `pip install -e .`
 
-## If I had more time what would I change?
+You can observe that the project is now installed with pip list.
 
-I have several ideas for things I would like to add to my web app in the future. First and foremost, I would like to begin using an odds API both for retrieving the best lines, as well as retrieving lines from other sportsbooks for bets I am interested in. Right now I do all of this manually (luckily I am able to access this informatioxn all in one place for the most part, however, the manual odds entry into my app does take time), and I believe it would make my system much more efficient to achieve this with an API instead.
+Initialize the database: `flask --app flaskr init-db`
 
-Another thing I want to add is more visualizations of my betting statistics. I intend to include a page solely for visualizations, and include things such as a calendar of the last month with graded coloring for each day indicating how much in the green or how much in the red I was for that given day, along with the dollar amount of loss/profit on that day. I'm sure there are many other insights I could add in addition to that idea.
+There will now be a flaskr.sqlite file in the instance folder.
 
-Some other things I would like to add:
+Run the Flask app using: `flask run`
+
+Navigate to the url provided in a browser to access the homepage of the application.
+
+## Features I'd like to add in the future
+
+* API for retrieving odds from different sportsbooks
+* Different visualization options for betting history
 * User accounts
-* Testing
-* Bet deletion functionality
-* How to use page
 
 [^1]: Tutorial - Flask Documentation (3.0.x). (n.d.). https://flask.palletsprojects.com/en/stable/tutorial/
