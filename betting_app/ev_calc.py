@@ -17,6 +17,7 @@ def implied_probability(odds):
             odds = int(odds.strip())
         except ValueError:
             print(f"Error: {odds} is not a valid integer.")
+            return f"Invalid odds format."
         if odds > 0:
             implied_prob = 100 / (odds + 100)
         else:
