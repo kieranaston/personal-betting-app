@@ -1,6 +1,6 @@
 # EV Calculator & Betting Tracker App
 
-A simple EV calculator and bet tracker. This was built following this [Flask application guide][^1].
+A simple EV calculator and bet tracker. This was built following this [Flask application guide][1].
 
 * Expected value and Kelly criterion calculation for singles and parlays, whether you have both sides available or not
 * Bets are evaluated based on their quality and users can place them with one of the suggested amounts (based on their bankroll and unit size) or with a custom amount
@@ -85,4 +85,4 @@ Navigate to the url the Flask app is running on to access the homepage of the ap
 * Different visualization options for betting history
 * User accounts
 
-[^1]: Tutorial - Flask Documentation (3.0.x). (n.d.). https://flask.palletsprojects.com/en/stable/tutorial/
+[1]: Tutorial - Flask Documentation (3.0.x). (n.d.). https://flask.palletsprojects.com/en/stable/tutorial/
