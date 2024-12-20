@@ -41,7 +41,6 @@ The file structure:
 │       ├── bets.html
 │       ├── ev.html
 │       └── graph.html
-├── pyproject.toml
 ├── requirements.txt
 └── tests
     ├── conftest.py
@@ -66,9 +65,11 @@ python3 -m venv .venv
 . .venv/bin/activate
 ```
 
-Install the project in the virtual environment: `pip install -e .`
+Make sure you have the latest version of pip installed: `python3 -m pip install --upgrade pip`
 
-You can observe that the project is now installed with pip list.
+Install the project dependencies to the virtual environment you just set up: `pip install -r requirements.txt`
+
+You can observe that the project dependencies are now installed with pip list.
 
 Initialize the database: `flask --app flaskr init-db`
 
