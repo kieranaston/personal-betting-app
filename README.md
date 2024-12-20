@@ -69,9 +69,9 @@ Make sure you have the latest version of pip installed: `python3 -m pip install 
 
 Install the project dependencies to the virtual environment you just set up: `pip install -r requirements.txt`
 
-You can observe that the project dependencies are now installed with pip list.
+You can observe that the project dependencies are now installed with `pip list`
 
-Initialize the database: `flask --app flaskr init-db`
+Initialize the database: `flask --app betting_app init-db`
 
 There will now be a flaskr.sqlite file in the instance folder.
 
