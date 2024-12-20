@@ -89,7 +89,6 @@ def ev_calculator():
 
 @ev_bp.route('/get-bet/<int:bet_id>', methods=['GET'])
 def get_bet(bet_id):
-    print(bet_id)
     db = get_db()
     bet = db.execute(
         'SELECT * FROM bets WHERE id = ?',

@@ -15,7 +15,6 @@ def view_bets():
     if not end_date:
         end_date = datetime.now().strftime('%Y-%m-%d')
     if not start_date:
-        print("Default start_date applied")
         start_date = (datetime.now() - timedelta(days=100)).strftime('%Y-%m-%d')
     if start_date > end_date:
         error_message = 'Start date cannot be after the end date.'

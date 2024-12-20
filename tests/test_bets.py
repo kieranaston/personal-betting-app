@@ -8,9 +8,7 @@ def test_view_bets_valid_range(client):
     end_date = '2024-12-18'
 
     response = client.get(f'/bets/view-bets?start_date={start_date}&end_date={end_date}')
-
     assert response.status_code == 200
-    print(response.data)
     assert b'Test Bet 1' in response.data or b'Test Bet 2' in response.data
     assert b'won' in response.data or b'lost' in response.data
 
