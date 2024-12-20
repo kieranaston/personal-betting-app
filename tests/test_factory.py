@@ -7,6 +7,6 @@ def test_config():
 
 def test_hello(client):
     response = client.get('/hello')
-    # below line was added
+
     assert response.status_code == 200
     assert response.data == b'Hello, World!'

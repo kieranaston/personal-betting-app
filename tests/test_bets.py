@@ -15,8 +15,6 @@ def test_view_bets_valid_range(client):
 def test_view_bets_missing_start_date(client):
     response = client.get('/bets/view-bets')
     assert response.status_code == 200
-    # Check that the default start_date (100 days ago) is applied.
-    # You might want to verify specific content in the response if necessary.
     assert b'Test Bet 1' in response.data or b'Test Bet 2' in response.data
 
 def test_view_bets_invalid_date_range(client):
@@ -43,7 +41,6 @@ def test_view_bets_no_results(client):
     assert b'No bets found for the specified date range.' in response.data
 
 def test_update_bet_status_success(client, app):
-    # Prepare test data in the database
     test_bet_id = 1
     new_status = 'won'
 
@@ -59,7 +56,7 @@ def test_update_bet_status_success(client, app):
 
 def test_update_bet_status_invalid_status(client, app):
     test_bet_id = 1
-    invalid_status = ''  # Empty status, which is invalid
+    invalid_status = ''
 
     response = client.post(f'/bets/update-bet-status/{test_bet_id}', data={'status': invalid_status})
 
@@ -72,7 +69,7 @@ def test_update_bet_status_invalid_status(client, app):
         assert outcome['outcome'] != invalid_status
 
 def test_update_bet_status_non_existent_bet(client, app):
-    non_existent_bet_id = 999  # Assuming this ID doesn't exist in the test data
+    non_existent_bet_id = 999
 
     response = client.post(f'/bets/update-bet-status/{non_existent_bet_id}', data={'status': 'won'})
 
@@ -80,7 +77,6 @@ def test_update_bet_status_non_existent_bet(client, app):
     assert b'Bet not found' in response.data
 
 def test_update_profit_loss_winning_bet(client, app):
-    # Prepare test data: A bet with 'won' outcome and specific odds and units_placed
     test_bet_id = 1
     response = client.post(f'/bets/update-profit-loss/{test_bet_id}')
 
@@ -88,7 +84,6 @@ def test_update_profit_loss_winning_bet(client, app):
     response_data = response.get_json()
     assert response_data['message'] == 'Profit/Loss updated successfully'
 
-    # Verify the profit/loss value in the database
     with app.app_context():
         db = get_db()
         bet = db.execute('SELECT * FROM bets WHERE id = ?', (test_bet_id,)).fetchone()
@@ -100,16 +95,15 @@ def test_update_profit_loss_winning_bet(client, app):
 
 def test_update_profit_loss_invalid_bet_outcome(client):
 
-    # Prepare test data: A bet with an invalid outcome
-    test_bet_id = 3  # Use an existing bet
-    response = client.post(f'/bets/update-profit-loss/{test_bet_id}')  # Invalid outcome
+    test_bet_id = 3
+    response = client.post(f'/bets/update-profit-loss/{test_bet_id}')
 
     assert response.status_code == 400
     response_data = response.get_json()
     assert response_data['error_message'] == 'Invalid bet outcome'
 
 def test_update_profit_loss_non_existent_bet(client):
-    # Non-existent bet ID
+
     non_existent_bet_id = 999
     response = client.post(f'/bets/update-profit-loss/{non_existent_bet_id}')
 
@@ -118,14 +112,13 @@ def test_update_profit_loss_non_existent_bet(client):
     assert response_data['error_message'] == 'Bet not found'
 
 def test_update_profit_loss_lost_bet(client, app):
-    test_bet_id = 2  # Use an existing bet with 'lost' outcome
+    test_bet_id = 2
     response = client.post(f'/bets/update-profit-loss/{test_bet_id}')
 
     assert response.status_code == 200
     response_data = response.get_json()
     assert response_data['message'] == 'Profit/Loss updated successfully'
 
-    # Verify the profit/loss in the database
     with app.app_context():
         db = get_db()
         bet = db.execute('SELECT * FROM bets WHERE id = ?', (test_bet_id,)).fetchone()
@@ -148,8 +141,7 @@ def test_update_profit_loss_not_settled(client, app):
 
 
 def test_update_bankroll_success(client, app):
-    # Prepare test data: A bet with profit_loss, unit_size, and bankroll
-    test_bet_id = 1  # Use an existing bet ID
+    test_bet_id = 1
 
     response = client.post(f'/bets/update-bankroll/{test_bet_id}')
 
@@ -169,11 +161,10 @@ def test_update_bankroll_success(client, app):
         ).fetchone()
 
         assert bankroll_entry is not None
-        assert bankroll_entry['change'] == bet['profit_loss'] * bet['unit_size'] # Ensure the bankroll was updated correctly
+        assert bankroll_entry['change'] == bet['profit_loss'] * bet['unit_size']
 
 def test_update_bankroll_no_profit_loss(client, app):
-    # Prepare test data: A bet with no profit_loss (i.e., outcome that results in zero profit/loss)
-    test_bet_id = 4  # Use an existing bet ID that results in no profit/loss
+    test_bet_id = 4
 
     response = client.post(f'/bets/update-bankroll/{test_bet_id}')
 
@@ -197,10 +188,10 @@ def test_update_bankroll_no_profit_loss(client, app):
         ).fetchone()
 
         assert bankroll_entry is not None
-        assert bankroll_entry['new_bankroll'] == previous  # Ensure no change in bankroll
+        assert bankroll_entry['new_bankroll'] == previous
 
 def test_update_bankroll_bet_not_found(client):
-    non_existent_bet_id = 999  # Assuming this ID doesn't exist
+    non_existent_bet_id = 999 
 
     response = client.post(f'/bets/update-bankroll/{non_existent_bet_id}')
 

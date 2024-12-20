@@ -9,7 +9,6 @@ def test_get_close_db(app):
         db = get_db()
         assert db is get_db()
 
-        # below block was added
         result = db.execute('SELECT 1').fetchone()
         assert result is not None
 

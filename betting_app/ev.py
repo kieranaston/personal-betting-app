@@ -10,7 +10,6 @@ ev_bp = Blueprint('ev', __name__, url_prefix='/ev')
 
 @ev_bp.route('/place-bet', methods=['POST'])
 def place_bet():
-    # required values
     bankroll = float(request.json.get('bankroll'))
     if bankroll <= 0 or len(str(bankroll).split('.')[1]) > 2:
         return jsonify({'error': 'Bankroll must be a monetary value.'}), 400
@@ -20,11 +19,8 @@ def place_bet():
     your_odds = int(request.json.get('your_odds'))
     if your_odds == 0:
             return jsonify({'error': 'Your odds must be American format.'}), 400
-
-    # no regex check for this, maybe something to add in future
     other_odds = request.json.get('other_odds')
 
-    # values either retrieved from session (already verified by other functions) or unnecessary
     manual_units_placed = request.json.get('units_placed')
 
     juice = session.get('juice')

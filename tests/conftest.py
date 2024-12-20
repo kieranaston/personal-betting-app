@@ -6,7 +6,6 @@ import pytest
 from betting_app import create_app
 from betting_app.db import get_db, init_db
 
-# Read data.sql directly without decoding
 with open(os.path.join(os.path.dirname(__file__), 'data.sql'), 'rb') as f:
     _data_sql = f.read().decode('utf8')
 

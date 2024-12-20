@@ -99,11 +99,8 @@ def test_get_latest_unit_size(client):
         assert b'Latest unit size retrieved successfully.' in response.data
 
 def test_index_route(client):
-    # Send a GET request to the index route
     response = client.get('/ev/')
 
-    # Assert the status code is 200
     assert response.status_code == 200
 
-    # Assert the response contains content from the rendered template
-    assert b'EV Calculator' in response.data  # Replace with actual content from ev.html
+    assert b'EV Calculator' in response.data  
