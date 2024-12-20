@@ -75,7 +75,7 @@ Initialize the database: `flask --app betting_app init-db`
 
 There will now be a flaskr.sqlite file in the instance folder.
 
-Run the Flask app using: `flask run`
+Run the Flask app using: `flask --app betting_app run`
 
 Navigate to the url provided in a browser to access the homepage of the application.
 
