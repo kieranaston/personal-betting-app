@@ -10,7 +10,7 @@ A simple EV calculator and bet tracker. This was built following this [Flask app
 * Users can select a data range for viewing bets
 * The database can be backed up to an .sqlite file
 
-![Unable to load GIF](https://github.com/kieranaston/personal-betting-app/blob/main/images/mainpage.gif)
+![Unable to load GIF](https://github.com/kieranaston/personal-betting-app/blob/main/images/main%20page.gif)
 
 ## Table of Contents
 - [How to navigate this project](#navigating-this-project)
