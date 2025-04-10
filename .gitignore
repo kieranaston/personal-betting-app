@@ -15,4 +15,4 @@ backups/
 
 .venv/
 
-pyproject.toml
+.DS_Store

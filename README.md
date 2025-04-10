@@ -7,24 +7,32 @@ A simple EV calculator and bet tracker. This was built following this [Flask app
 * Recent bets can be viewed and set as either a win, loss, or not settled
 * Profit and loss is adjusted based on the results of bets
 * A simple line graph showing the user's bankroll is displayed on the home page of the app
-* Users can select a data range for viewing bets
+* Users can select a date range for viewing bets
 * The database can be backed up to an .sqlite file
 
-![Unable to load GIF](https://github.com/kieranaston/personal-betting-app/blob/main/images/main%20page.gif)
-
 ## Table of Contents
-- [How to navigate this project](#navigating-this-project)
-- [How to install this project](#how-to-install-this-project)
-- [Things I'd like to add](#features-id-like-to-add-in-the-future)
+- [EV Calculator \& Betting Tracker App](#ev-calculator--betting-tracker-app)
+  - [Table of Contents](#table-of-contents)
+  - [Navigating this project](#navigating-this-project)
+  - [How to install this project](#how-to-install-this-project)
+  - [Features I'd like to add in the future](#features-id-like-to-add-in-the-future)
 
  ## Navigating this project
 
 The file structure:
 
 ```
-├── LICENSE
-├── README.md
 ├── betting_app
+│   ├── static
+│   │   ├── bets.js
+│   │   ├── ev.js
+│   │   ├── graph.js
+│   │   └── style.css
+│   ├── templates
+│   │   ├── base.html
+│   │   ├── bets.html
+│   │   ├── ev.html
+│   │   └── graph.html
 │   ├── __init__.py
 │   ├── backups.py
 │   ├── bets.py
@@ -32,28 +40,20 @@ The file structure:
 │   ├── ev.py
 │   ├── ev_calc.py
 │   ├── graph.py
-│   ├── schema.sql
-│   ├── static
-│   │   ├── bets.js
-│   │   ├── ev.js
-│   │   ├── graph.js
-│   │   └── style.css
-│   └── templates
-│       ├── base.html
-│       ├── bets.html
-│       ├── ev.html
-│       └── graph.html
-├── requirements.txt
-└── tests
-    ├── conftest.py
-    ├── data.sql
-    ├── test_backup.py
-    ├── test_bets.py
-    ├── test_db.py
-    ├── test_ev.py
-    ├── test_ev_calc.py
-    ├── test_factory.py
-    └── test_graph.py
+│   └── schema.sql
+├── tests
+│   ├── conftest.py
+│   ├── data.sql
+│   ├── test_backup.py
+│   ├── test_bets.py
+│   ├── test_db.py
+│   ├── test_ev.py
+│   ├── test_ev_calc.py
+│   ├── test_factory.py
+│   └── test_graph.py
+├── LICENSE
+├── README.md
+└── requirements.txt
 ```
 
 ## How to install this project

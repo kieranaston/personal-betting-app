@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-{% block title %}EV Calculator{% endblock %}
+{% block title %}EV calculator{% endblock %}
 {% endblock %}
 
 {% block content %}
@@ -33,7 +33,7 @@
 </div>
 <form id="place-bet-form">
     <div id="bet-name-entry">
-        <label for="bet-name">Bet Name:</label>
+        <label for="bet-name">Bet name:</label>
         <input id="bet-name" name="bet-name" placeholder="Enter the name of the bet" required>
     </div>
     <div id="kelly-percentage-entry">
@@ -47,11 +47,11 @@
     </div>
 
     <div id="units-placed-entry">
-        <label for="units-placed">Units Placed:</label>
+        <label for="units-placed">Units placed:</label>
         <input id="units-placed" name="units-placed" placeholder="Enter units placed (optional)">
     </div>
 
-    <button type="submit">Place Bet</button>
+    <button type="submit">Place bet</button>
     <div id="bet-message-container"></div>
 </form>
 <div id="bet-details">

@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block header %}
-{% block title %}Recent Bets{% endblock %}
+{% block title %}Recent bets{% endblock %}
 {% endblock %}
 
 {% block content %}
 <div id="form-container">
     <form id="bet-filter-form" action="/bets/view-bets" method="get">
         <div>
-            <label for="start-date">Start Date:</label>
+            <label for="start-date">Start date:</label>
             <input type="date" id="start-date" name="start_date" required>
         </div>
         <div>
-            <label for="end-date">End Date:</label>
+            <label for="end-date">End date:</label>
             <input type="date" id="end-date" name="end_date" required>
         </div>
-        <button type="button" id="filter-bets-btn" action="/bets/view-bets" method="get">Filter Bets</button>
+        <button type="button" id="filter-bets-btn" action="/bets/view-bets" method="get">Filter bets</button>
     {% if error_message %}
         <p id="error-message" class="date-error" style="color: red; margin-left: 0;">{{ error_message }}</p>
     {% endif %}
@@ -25,16 +25,16 @@
     <thead>
         <tr>
             <th>Date</th>
-            <th>Bet Name</th>
+            <th>Bet name</th>
             <th>Bankroll</th>
-            <th>Unit Size</th>
-            <th>Your Odds</th>
-            <th>Other Odds</th>
+            <th>Unit size</th>
+            <th>Your odds</th>
+            <th>Other odds</th>
             <th>EV</th>
-            <th>Units Placed</th>
-            <th>Default Juice</th>
+            <th>Units placed</th>
+            <th>Default juice</th>
             <th>Status</th>
-            <th>Profit/Loss</th>
+            <th>Profit/loss</th>
         </tr>
     </thead>
     <tbody>
@@ -51,7 +51,7 @@
             <td>{{ (bet.juice * 100) | round(4) }}%</td>
             <td>
                 <select onchange="updateBetStatus('/bets/update-bet-status/{{ bet.id }}', this.value)">
-                    <option value="not settled" {% if bet.outcome == 'not settled' %}selected{% endif %}>Not Settled</option>
+                    <option value="not settled" {% if bet.outcome == 'not settled' %}selected{% endif %}>Not settled</option>
                     <option value="won" {% if bet.outcome == 'won' %}selected{% endif %}>Won</option>
                     <option value="lost" {% if bet.outcome == 'lost' %}selected{% endif %}>Lost</option>
                 </select>
@@ -61,7 +61,7 @@
         {% endfor %}
     </tbody>
 </table>
-<button id="backup-btn">Backup Database</button>
+<button id="backup-btn">Backup database</button>
 <div id="backup-message-container"></div>
 {% endblock %}
 

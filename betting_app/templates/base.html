@@ -1,15 +1,15 @@
 <!doctype html>
 <head>
-    <title>{% block title %}{% endblock %} - Betting App</title>
+    <title>{% block title %}{% endblock %} - Betting app</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <nav>
-        <h1 class="app-name">Betting App</h1>
+        <h1 class="app-name">Betting app</h1>
         <ul class="topnav">
             <li><a href="{{ url_for('graph.show_graph') }}">Home</a></li>
-            <li><a href="{{ url_for('ev.index') }}">EV Calculator</a></li>
-            <li><a href="{{ url_for('bets.view_bets') }}">Recent Bets</a></li>
+            <li><a href="{{ url_for('ev.index') }}">EV calculator</a></li>
+            <li><a href="{{ url_for('bets.view_bets') }}">Recent bets</a></li>
         </ul>
     </nav>
     <section class="content">
